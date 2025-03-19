@@ -5,13 +5,13 @@ EnergyView is a cutting-edge research and development initiative in the Digital 
 This repository houses the front-end component of the project.
 
 <p>
-  <img src="./images/desktop-light.png" height=350>
-  <img src="./images/mobile-light.png" height=350>
+  <img src="./images/desktop-light.png" height=300>
+  <img src="./images/mobile-light.png" height=300>
 </p>
 
 <p>
-  <img src="./images/desktop-dark.png" height=350>
-  <img src="./images/mobile-dark.png" height=350>
+  <img src="./images/desktop-dark.png" height=300>
+  <img src="./images/mobile-dark.png" height=300>
 </p>
 
 The platform captures granular consumption and demand data from the Software Laboratory of the Electrical Engineering Building at Poli-USP through a network of IoT devices. This data is then processed and transformed into intuitive dashboards that enable detailed analysis of energy usage patterns.
