@@ -1,6 +1,6 @@
 # EnergyView
 
-EnergyView is a cutting-edge research and development initiative in the Digital Twin domain, aimed at building a robust, distributed system for real-time energy monitoring and analysis.
+[EnergyView](https://energyview.vercel.app/) is a cutting-edge research and development initiative in the Digital Twin domain, aimed at building a robust, distributed system for real-time energy monitoring and analysis.
 
 This repository houses the front-end component of the project.
 
