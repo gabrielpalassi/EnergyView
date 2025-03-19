@@ -63,7 +63,7 @@ export function About() {
               <div className="mt-4">
                 <Button variant="outline" size="sm" asChild>
                   <a
-                    href="https://github.com/EnergyView/EnergyView-FrontEnd"
+                    href="https://github.com/gabrielpalassi/EnergyView"
                     target="_blank"
                     rel="noopener noreferrer"
                     className="flex items-center gap-2"
