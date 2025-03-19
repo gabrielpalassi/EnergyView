@@ -56,7 +56,7 @@ To ensure code quality and consistency, the following tools are included:
 - **Format and Lint**: Run both formatting and linting in one step to ensure your code meets all quality standards.
 
   ```bash
-  bun run check
+  npm run check
   ```
 
   We use [Husky](https://typicode.github.io/husky/#/) to enforce code quality. The _check_ script runs before each commit to perform formatting checks with Prettier and linting checks with ESLint, in that order. The commit will only proceed if all checks pass.
