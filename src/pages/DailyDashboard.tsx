@@ -81,23 +81,57 @@ export function DailyDashboard() {
 
   useEffect(() => {
     setState("loading");
-    axios
-      .get<DailyConsumptionData>("/api/day-consumption-dashboard", {
-        params: { day: format(date, "yyyy-MM-dd") },
-      })
-      .then((response) => {
-        setData(response.data);
-        setConsumptionChartData(
-          extractDataFromHtml(response.data["consumo-acumulado"]),
-        );
-        setDemandProfileChartData(
-          extractDataFromHtml(response.data["curva-de-carga"]),
-        );
-        setState("loaded");
-      })
-      .catch(() => {
-        setState("error");
-      });
+    const now = new Date().getTime();
+
+    // Format the selected date to 'yyyy-MM-dd' and create the cache key
+    const formattedDate = format(date, "yyyy-MM-dd");
+    const cacheKey = `daily-consumption-${formattedDate}`;
+
+    // Retrieve cached data and its expiry time from localStorage
+    const cachedData = localStorage.getItem(cacheKey);
+    const cacheExpiry = localStorage.getItem(`${cacheKey}-expiry`);
+
+    // Check if cached data exists and is still valid
+    if (cachedData && cacheExpiry && now < Number(cacheExpiry)) {
+      const parsedData = JSON.parse(cachedData);
+      setData(parsedData);
+      setConsumptionChartData(
+        extractDataFromHtml(parsedData["consumo-acumulado"]),
+      );
+      setDemandProfileChartData(
+        extractDataFromHtml(parsedData["curva-de-carga"]),
+      );
+      setState("loaded");
+    } else {
+      // Fetch data from the API if no valid cache is found
+      axios
+        .get<DailyConsumptionData>("/api/day-consumption-dashboard", {
+          params: { day: formattedDate },
+        })
+        .then((response) => {
+          setData(response.data);
+          setConsumptionChartData(
+            extractDataFromHtml(response.data["consumo-acumulado"]),
+          );
+          setDemandProfileChartData(
+            extractDataFromHtml(response.data["curva-de-carga"]),
+          );
+          setState("loaded");
+
+          // Set cache expiry time: 10 minutes for today, 24 hours for previous days
+          const expiryTime =
+            formattedDate === format(new Date(), "yyyy-MM-dd")
+              ? now + 10 * 60 * 1000
+              : now + 24 * 60 * 60 * 1000;
+
+          // Store the fetched data and its expiry time in localStorage
+          localStorage.setItem(cacheKey, JSON.stringify(response.data));
+          localStorage.setItem(`${cacheKey}-expiry`, expiryTime.toString());
+        })
+        .catch(() => {
+          setState("error");
+        });
+    }
   }, [date]);
 
   return (
