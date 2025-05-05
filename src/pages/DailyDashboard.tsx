@@ -162,6 +162,7 @@ export function DailyDashboard() {
               <Calendar
                 mode="single"
                 selected={date}
+                defaultMonth={date}
                 onSelect={(day) => {
                   if (day) {
                     setDate(day);
