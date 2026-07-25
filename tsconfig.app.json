@@ -23,8 +23,6 @@
     "noUncheckedSideEffectImports": true,
 
     /* shadcn/ui */
-    "baseUrl": ".",
-    "ignoreDeprecations": "6.0",
     "paths": { "@/*": ["./src/*"] }
   },
   "include": ["src"]
