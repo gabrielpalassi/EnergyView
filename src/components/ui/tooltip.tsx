@@ -27,33 +27,9 @@ function Tooltip({
 }
 
 function TooltipTrigger({
-  onPointerUp,
   ...props
 }: React.ComponentProps<typeof TooltipPrimitive.Trigger>) {
-  return (
-    <TooltipPrimitive.Trigger
-      data-slot="tooltip-trigger"
-      tabIndex={0}
-      onPointerUp={(event) => {
-        onPointerUp?.(event);
-
-        if (
-          !event.defaultPrevented &&
-          event.pointerType === "touch" &&
-          event.currentTarget.dataset.state === "closed"
-        ) {
-          const trigger = event.currentTarget;
-
-          // Let Radix handle the click first, then use its native focus trigger.
-          window.setTimeout(() => {
-            trigger.blur();
-            trigger.focus({ preventScroll: true });
-          }, 0);
-        }
-      }}
-      {...props}
-    />
-  );
+  return <TooltipPrimitive.Trigger data-slot="tooltip-trigger" {...props} />;
 }
 
 function TooltipContent({

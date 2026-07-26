@@ -12,22 +12,18 @@ import { useEffect, useState } from "react";
 import { enGB } from "date-fns/locale";
 import {
   Card,
+  CardAction,
   CardContent,
   CardDescription,
   CardHeader,
   CardTitle,
 } from "@/components/ui/card";
-import {
-  Tooltip,
-  TooltipContent,
-  TooltipProvider,
-  TooltipTrigger,
-} from "@/components/ui/tooltip";
 import { ConsumptionChart } from "@/components/ConsumptionChart";
 import { PhaseDistributionChart } from "@/components/PhaseDistributionChart";
 import { Progress } from "@/components/ui/progress";
 import { DemandProfileChart } from "@/components/DemandProfileChart";
 import { Skeleton } from "@/components/ui/skeleton";
+import { InfoTooltip } from "@/components/InfoTooltip";
 import axios from "axios";
 import { TimeSeriesData, State } from "@/lib/types";
 
@@ -212,16 +208,12 @@ export function DailyDashboard() {
                   <CardTitle className="text-sm font-medium">
                     Total Consumption
                   </CardTitle>
-                  <TooltipProvider>
-                    <Tooltip>
-                      <TooltipTrigger asChild>
-                        <Info className="text-muted-foreground h-4 w-4" />
-                      </TooltipTrigger>
-                      <TooltipContent>
-                        <p>Total energy consumed throughout the day</p>
-                      </TooltipContent>
-                    </Tooltip>
-                  </TooltipProvider>
+                  <InfoTooltip label="total consumption">
+                    <p>
+                      Total electrical energy used during the selected day,
+                      shown in kilowatt-hours (kWh).
+                    </p>
+                  </InfoTooltip>
                 </CardHeader>
                 <CardContent>
                   {state === "loaded" && data ? (
@@ -258,16 +250,12 @@ export function DailyDashboard() {
                   <CardTitle className="text-sm font-medium">
                     Average Demand
                   </CardTitle>
-                  <TooltipProvider>
-                    <Tooltip>
-                      <TooltipTrigger asChild>
-                        <Info className="text-muted-foreground h-4 w-4" />
-                      </TooltipTrigger>
-                      <TooltipContent>
-                        <p>Average power demand throughout the day</p>
-                      </TooltipContent>
-                    </Tooltip>
-                  </TooltipProvider>
+                  <InfoTooltip label="average demand">
+                    <p>
+                      Average rate of electrical power use during the selected
+                      day, shown in watts (W).
+                    </p>
+                  </InfoTooltip>
                 </CardHeader>
                 <CardContent>
                   {state === "loaded" && data ? (
@@ -304,16 +292,12 @@ export function DailyDashboard() {
                   <CardTitle className="text-sm font-medium">
                     Maximum Demand
                   </CardTitle>
-                  <TooltipProvider>
-                    <Tooltip>
-                      <TooltipTrigger asChild>
-                        <Info className="text-muted-foreground h-4 w-4" />
-                      </TooltipTrigger>
-                      <TooltipContent>
-                        <p>Highest power demand recorded</p>
-                      </TooltipContent>
-                    </Tooltip>
-                  </TooltipProvider>
+                  <InfoTooltip label="maximum demand">
+                    <p>
+                      Highest electrical power demand recorded during the
+                      selected day, shown in watts (W).
+                    </p>
+                  </InfoTooltip>
                 </CardHeader>
                 <CardContent>
                   {state === "loaded" && data ? (
@@ -350,16 +334,12 @@ export function DailyDashboard() {
                   <CardTitle className="text-sm font-medium">
                     Peak Time
                   </CardTitle>
-                  <TooltipProvider>
-                    <Tooltip>
-                      <TooltipTrigger asChild>
-                        <Info className="text-muted-foreground h-4 w-4" />
-                      </TooltipTrigger>
-                      <TooltipContent>
-                        <p>Time of highest energy usage</p>
-                      </TooltipContent>
-                    </Tooltip>
-                  </TooltipProvider>
+                  <InfoTooltip label="peak time">
+                    <p>
+                      Time when the highest electrical power demand was recorded
+                      during the selected day.
+                    </p>
+                  </InfoTooltip>
                 </CardHeader>
                 <CardContent>
                   {state === "loaded" && data ? (
@@ -392,6 +372,15 @@ export function DailyDashboard() {
                   <CardDescription>
                     Power demand throughout the day
                   </CardDescription>
+                  <CardAction>
+                    <InfoTooltip label="demand profile chart">
+                      <p>
+                        Shows how electrical power demand changes during the
+                        selected day. Higher points represent periods of greater
+                        power use.
+                      </p>
+                    </InfoTooltip>
+                  </CardAction>
                 </CardHeader>
                 <CardContent className="h-60 lg:h-[356px]">
                   {state === "loaded" && demandProfileChartData ? (
@@ -407,6 +396,15 @@ export function DailyDashboard() {
                 <CardHeader>
                   <CardTitle>Consumption by Phase</CardTitle>
                   <CardDescription>Distribution across phases</CardDescription>
+                  <CardAction>
+                    <InfoTooltip label="consumption by phase chart">
+                      <p>
+                        Shows how the selected day&apos;s total energy use is
+                        distributed across phases A, B, and C. Similar shares
+                        indicate a more balanced load.
+                      </p>
+                    </InfoTooltip>
+                  </CardAction>
                 </CardHeader>
                 <CardContent>
                   {state === "loaded" && data ? (
@@ -563,6 +561,15 @@ export function DailyDashboard() {
                 <CardDescription>
                   Cumulative energy usage throughout the day
                 </CardDescription>
+                <CardAction>
+                  <InfoTooltip label="consumption over time chart">
+                    <p>
+                      Shows cumulative energy consumption during the selected
+                      day. Steeper sections indicate periods when energy was
+                      being used more quickly.
+                    </p>
+                  </InfoTooltip>
+                </CardAction>
               </CardHeader>
               <CardContent className="h-60 lg:h-[356px]">
                 {state === "loaded" && consumptionChartData ? (
