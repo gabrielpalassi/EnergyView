@@ -4,4 +4,4 @@
 . "$(dirname -- "$0")/_/husky.sh"
 
 # Run the pre-commit check script
-npm run check
+bun run check

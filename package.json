@@ -3,14 +3,18 @@
   "private": true,
   "version": "0.2.0",
   "type": "module",
+  "packageManager": "bun@1.4.4",
+  "engines": {
+    "bun": ">=1.4.4"
+  },
   "scripts": {
     "dev": "vite --host --open",
     "build": "tsc -b && vite build",
     "lint": "eslint --fix .",
-    "format": "prettier --write .",
-    "check": "npm run lint && npm run format",
+    "format": "bun fmt",
+    "check": "bun run lint && bun run format",
     "preview": "vite preview",
-    "post-install": "npm install && husky"
+    "prepare": "husky"
   },
   "dependencies": {
     "@radix-ui/react-dialog": "^1.1.6",
@@ -44,8 +48,6 @@
     "eslint-plugin-react-hooks": "^5.1.0",
     "globals": "^15.15.0",
     "husky": "^9.1.7",
-    "prettier": "^3.5.3",
-    "prettier-plugin-tailwindcss": "^0.6.11",
     "typescript": "~5.7.2",
     "typescript-eslint": "^8.24.1",
     "vite": "^6.2.0"

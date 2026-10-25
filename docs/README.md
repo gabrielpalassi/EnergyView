@@ -27,39 +27,46 @@ The platform captures granular consumption and demand data from the Software Lab
 
 ### Requirements
 
-- Node.js
-- npm (Node Package Manager)
+- [Bun](https://bun.sh/) 1.4.4 or newer (runtime, package manager, and formatter)
 
 ### How to run
 
 1. Clone the repository;
 2. Open a terminal and _cd_ into the repository's directory;
-3. Run `npm post-clone` to install and initialize dependencies;
-4. Run `npm run dev` to serve the app.
+3. Run `bun install` to install dependencies and initialize Husky's Git hooks;
+4. Run `bun run dev` to serve the app.
+
+Commit `bun.lock` when dependencies change. For reproducible installs in CI, use
+`bun install --frozen-lockfile`. Run `bun run build` to create a production build.
+
+`bunfig.toml` configures package scripts to use the Bun runtime, including Vite,
+TypeScript, and ESLint. A separate Node.js installation is not required.
 
 ## Code Quality
 
 To ensure code quality and consistency, the following tools are included:
 
-- **Formatting**: Use Prettier to automatically format your code according to the project's style guidelines.
+- **Formatting**: Use Bun's built-in formatter, configured in `bunfig.toml`, to format code and sort Tailwind CSS classes.
 
   ```bash
-  npm run format
+  bun run format
   ```
+
+  To check formatting without modifying files, run `bun fmt --check`.
 
 - **Linting**: Employ ESLint to identify and address code quality issues.
 
   ```bash
-  npm run lint
+  bun run lint
   ```
 
 - **Format and Lint**: Run both formatting and linting in one step to ensure your code meets all quality standards.
 
   ```bash
-  npm run check
+  bun run check
   ```
 
-  We use [Husky](https://typicode.github.io/husky/#/) to enforce code quality. The _check_ script runs before each commit to perform formatting checks with Prettier and linting checks with ESLint, in that order. The commit will only proceed if all checks pass.
+  We use [Husky](https://typicode.github.io/husky/#/) to enforce code quality. The _check_ script runs before each commit to apply ESLint fixes, then format with `bun fmt`. The commit will only proceed if both commands succeed. Review and stage any resulting changes before committing.
 
 ## Contributing
 
