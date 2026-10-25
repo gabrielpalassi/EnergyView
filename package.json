@@ -9,10 +9,11 @@
   },
   "scripts": {
     "dev": "vite --host --open",
-    "build": "tsc -b && vite build",
+    "build": "bun run typecheck && vite build",
+    "typecheck": "bun check --no-script --build",
     "lint": "eslint --fix .",
     "format": "bun fmt",
-    "check": "bun run lint && bun run format",
+    "check": "bun run typecheck && bun run lint && bun run format",
     "preview": "vite preview",
     "prepare": "husky"
   },

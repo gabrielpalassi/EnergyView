@@ -37,14 +37,25 @@ The platform captures granular consumption and demand data from the Software Lab
 4. Run `bun run dev` to serve the app.
 
 Commit `bun.lock` when dependencies change. For reproducible installs in CI, use
-`bun install --frozen-lockfile`. Run `bun run build` to create a production build.
+`bun install --frozen-lockfile`. Run `bun run build` to type check with Bun and create
+a production build with Vite.
 
-`bunfig.toml` configures package scripts to use the Bun runtime, including Vite,
-TypeScript, and ESLint. A separate Node.js installation is not required.
+`bunfig.toml` configures package scripts to use the Bun runtime, including Vite
+and ESLint. A separate Node.js installation is not required.
 
 ## Code Quality
 
 To ensure code quality and consistency, the following tools are included:
+
+- **Type checking**: Use Bun's built-in type checker for both TypeScript projects.
+
+  ```bash
+  bun run typecheck
+  ```
+
+  The `--no-script` flag selects Bun's type checker instead of the project's
+  `check` script. The TypeScript package remains installed for ESLint's TypeScript
+  tooling.
 
 - **Formatting**: Use Bun's built-in formatter, configured in `bunfig.toml`, to format code and sort Tailwind CSS classes.
 
@@ -60,13 +71,13 @@ To ensure code quality and consistency, the following tools are included:
   bun run lint
   ```
 
-- **Format and Lint**: Run both formatting and linting in one step to ensure your code meets all quality standards.
+- **Combined checks**: Run type checking, linting, and formatting in one step.
 
   ```bash
   bun run check
   ```
 
-  We use [Husky](https://typicode.github.io/husky/#/) to enforce code quality. The _check_ script runs before each commit to apply ESLint fixes, then format with `bun fmt`. The commit will only proceed if both commands succeed. Review and stage any resulting changes before committing.
+  We use [Husky](https://typicode.github.io/husky/#/) to enforce code quality. The _check_ script runs before each commit to type check with Bun, apply ESLint fixes, then format with `bun fmt`. The commit will only proceed if all three commands succeed. Review and stage any resulting changes before committing.
 
 ## Contributing
 
